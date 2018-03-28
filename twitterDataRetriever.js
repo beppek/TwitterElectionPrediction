@@ -52,8 +52,6 @@ function getTweets(config, q) {
       if (err) {
         reject(err);
       } else {
-        // console.log(res);
-        // console.log(tweets);
         const timestamp = Date.now();
         const filename = `p${q.page}-${timestamp}.json`;
         fs.writeFile(
