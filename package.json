@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "getTweets": "node ./twitterDataRetriever"
+    "getTweets": "node ./TwitterSearch",
+    "analyse": "node ./SentimentAnalysis"
   },
   "author": "beppek",
   "license": "ISC",
   "dependencies": {
     "axios": "^0.17.1",
     "request": "^2.83.0",
+    "sentiment-swedish": "^1.1.0",
     "twitter": "^1.7.1"
   },
   "devDependencies": {
