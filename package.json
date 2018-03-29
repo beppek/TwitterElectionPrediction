@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "getTweets": "node ./twitterDataRetriever.js"
+    "getTweets": "node ./twitterDataRetriever"
   },
   "author": "beppek",
   "license": "ISC",
