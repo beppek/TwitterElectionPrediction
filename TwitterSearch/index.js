@@ -29,7 +29,7 @@ queries.forEach((q) => {
 
   getTweets(
     config,
-    {query: q, page: 58}
+    {query: q, page: 0}
   )
   .then((message) => {
     console.log(message);
