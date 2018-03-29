@@ -1,3 +1,4 @@
+// https://github.com/AlexGustafsson/sentiment-swedish
 const sentiment = require('sentiment-swedish');
 const fs = require('fs');
 
