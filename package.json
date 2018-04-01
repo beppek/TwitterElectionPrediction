@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "getTweets": "node ./TwitterSearch",
     "analyse": "node ./SentimentAnalysis",
-    "getPolls": "node ./PollCrawler"
+    "getPolls": "node ./PollCrawler",
+    "cleanData": "node ./CleanData"
   },
   "author": "beppek",
   "license": "ISC",
