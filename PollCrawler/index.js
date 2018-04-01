@@ -3,6 +3,7 @@ const rp = require('request-promise');
 const fs = require('fs');
 const moment = require('moment');
 
+// TODO: Get from command line?
 getResults('mars');
 module.exports = getResults;
 
