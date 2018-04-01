@@ -6,13 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "getTweets": "node ./TwitterSearch",
-    "analyse": "node ./SentimentAnalysis"
+    "analyse": "node ./SentimentAnalysis",
+    "getPolls": "node ./PollCrawler"
   },
   "author": "beppek",
   "license": "ISC",
   "dependencies": {
+    "@types/cheerio": "^0.22.7",
+    "@types/moment": "^2.13.0",
+    "@types/request-promise": "^4.1.41",
     "axios": "^0.17.1",
-    "request": "^2.83.0",
+    "cheerio": "^1.0.0-rc.2",
+    "moment": "^2.22.0",
+    "request": "^2.85.0",
+    "request-promise": "^4.2.2",
     "sentiment-swedish": "^1.1.0",
     "twitter": "^1.7.1"
   },
