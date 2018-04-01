@@ -1,6 +1,7 @@
 // https://github.com/AlexGustafsson/sentiment-swedish
 const sentiment = require('sentiment-swedish');
 const fs = require('fs');
+const moment = require('moment');
 
 const dataLocation = './data/twitter';
 // Data dir
@@ -99,7 +100,8 @@ function sumSentiments(sentiments, party) {
  * @param {any} party
  */
 function saveSentiment(sentiment, party) {
-  const timestamp = Date.now();
+  moment.locale('sv');
+  const timestamp = moment().format('L');
   const filename = `${party}/sentiment_analysis-${timestamp}.json`;
   fs.writeFile(
     `./SentimentAnalysis/data/${filename}`,
