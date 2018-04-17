@@ -1,6 +1,8 @@
 const secrets = require('./secrets');
 const fs = require('fs');
 const request = require('request');
+const moment = require('moment');
+moment.locale('sv');
 
 const url = 'https://api.twitter.com/1.1/tweets/search/30day/val30.json';
 
@@ -52,7 +54,8 @@ function getTweets(config, q) {
       if (err) {
         reject(err);
       } else {
-        const timestamp = Date.now();
+        // const timestamp = Date.now();
+        const timestamp = moment().format('L');
         const filename = `p${q.page}-${timestamp}.json`;
         fs.writeFile(
           `./data/twitter/${q.query}/${filename}`,
@@ -66,7 +69,7 @@ function getTweets(config, q) {
             }
           }
         );
-        if (tweets.next && q.page < 75) {
+        if (tweets.next && q.page < 38) {
           config.body.next = tweets.next;
           q.page += 1;
 
