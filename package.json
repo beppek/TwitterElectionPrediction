@@ -8,7 +8,8 @@
     "getTweets": "node ./TwitterSearch",
     "analyse": "node ./SentimentAnalysis",
     "getPolls": "node ./PollCrawler",
-    "cleanData": "node ./CleanData"
+    "cleanData": "node ./CleanData",
+    "calcScore": "node ./ScoreCalculator"
   },
   "author": "beppek",
   "license": "ISC",
