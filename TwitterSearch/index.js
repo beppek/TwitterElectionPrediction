@@ -8,6 +8,8 @@ const url = 'https://api.twitter.com/1.1/tweets/search/30day/val30.json';
 
 const queries = ['sdriks', 'socialdemokrat', 'nya_moderaterna'];
 
+const month = 'May';
+
 let requests = 0;
 
 queries.forEach((q) => {
@@ -29,16 +31,13 @@ queries.forEach((q) => {
     }
   };
 
-  getTweets(
-    config,
-    {query: q, page: 0}
-  )
-  .then((message) => {
-    console.log(message);
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+  getTweets(config, {query: q, page: 0})
+    .then((message) => {
+      console.log(message);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 });
 
 /**
@@ -57,7 +56,7 @@ function getTweets(config, q) {
         const timestamp = moment().format('L');
         const filename = `p${q.page}-${timestamp}.json`;
         fs.writeFile(
-          `./data/twitter/${q.query}/${filename}`,
+          `./data/twitter/${month}/${q.query}/${filename}`,
           JSON.stringify(tweets),
           'utf8',
           (err) => {
@@ -72,22 +71,24 @@ function getTweets(config, q) {
           config.body.next = tweets.next;
           q.page += 1;
 
-          requests < 29 ? getTweets(config, q)
-              .then((message) => {
-                console.log(message);
-              })
-              .catch((err) => {
-                console.log(err);
-              }) : setTimeout(() => {
-              requests = 0;
-              getTweets(config, q)
+          requests < 21
+            ? getTweets(config, q)
                 .then((message) => {
                   console.log(message);
                 })
                 .catch((err) => {
                   console.log(err);
-                });
-            }, 60000);
+                })
+            : setTimeout(() => {
+                requests = 0;
+                getTweets(config, q)
+                  .then((message) => {
+                    console.log(message);
+                  })
+                  .catch((err) => {
+                    console.log(err);
+                  });
+              }, 65000);
         }
       }
     });
