@@ -4,7 +4,7 @@ const fs = require('fs');
 const moment = require('moment');
 
 // TODO: Get from command line?
-getResults('mars');
+getResults('maj');
 module.exports = getResults;
 
 /**
@@ -15,9 +15,9 @@ module.exports = getResults;
 async function getResults(month) {
   const HTML = await getHTML();
   const results = extractResults(HTML, month);
-  saveFile('AllPolls', results);
+  await saveFile('AllPolls', results);
   const score = calcAverage(results);
-  saveFile('Average', score);
+  await saveFile('Average', score);
   return score;
 }
 
@@ -26,13 +26,14 @@ async function getResults(month) {
  *
  * @return {Promise} Promise containing the HTML as a string
  */
-function getHTML() {
+async function getHTML() {
   return new Promise((resolve, reject) => {
     rp('https://github.com/hjnilsson/SwedishPolls/blob/master/Data/Polls.csv')
       .then((html) => {
         resolve(html);
       })
       .catch((err) => {
+        console.log(err);
         reject(err);
       });
   });
@@ -53,6 +54,7 @@ function extractResults(HTML, month) {
   rows = rows.slice(0, 15);
   rows.each((i, row) => {
     const date = row.children[3].children[0].data;
+    console.log(date);
     if (date === `2018-${month}`) {
       const company = row.children[5].children[0].data;
       const m = row.children[7].children[0].data;
@@ -66,6 +68,7 @@ function extractResults(HTML, month) {
       });
     }
   });
+  console.log(latest);
   return latest;
 }
 
@@ -111,9 +114,10 @@ function saveFile(filename, data) {
       'utf8',
       (err) => {
         if (err) {
+          console.log(err);
           reject(err);
         } else {
-          resolve(`Successfully saved ${filename}`);
+          resolve(console.log(`Successfully saved ${filename}`));
         }
       }
     );
