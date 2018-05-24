@@ -3,7 +3,8 @@ const sentiment = require('sentiment-swedish');
 const fs = require('fs');
 const moment = require('moment');
 
-const dataLocation = './data/twitter';
+const month = 'May';
+const dataLocation = `./data/twitter/${month}`;
 // Data dir
 fs.readdirSync(dataLocation).forEach((party) => {
   let partyPromises = [];
@@ -34,30 +35,6 @@ fs.readdirSync(dataLocation).forEach((party) => {
   Promise.all(partyPromises).then((promises) => {
     let sentiments = [];
     promises.forEach((prom) => (sentiments = sentiments.concat(prom)));
-    const score = sumSentiments(sentiments, party);
-    const {
-      negativeCount,
-      // totalNegative,
-      // totalPositive,
-      positiveCount,
-      tweetCount,
-      totalScore
-    } = score;
-    const countScore = positiveCount - negativeCount;
-    const addedScores = countScore + totalScore;
-    const averagePositive = positiveCount / tweetCount;
-    console.log('******************************************');
-    console.log('**--------------------------------------**');
-    console.log(`Score for ${party}`);
-    // console.log(score);
-    console.log(`Tweet count: ${tweetCount}`);
-    console.log(`Count score: ${countScore}`);
-    console.log(`Total score: ${totalScore}`);
-    console.log(`Added score: ${addedScores}`);
-    console.log(`Average positive: ${averagePositive}`);
-    console.log('**--------------------------------------**');
-    console.log('******************************************');
-    console.log('\n');
     saveSentiment(sentiments, party);
   });
 });
@@ -101,8 +78,7 @@ function sumSentiments(sentiments, party) {
  */
 function saveSentiment(sentiment, party) {
   moment.locale('sv');
-  const timestamp = moment().format('L');
-  const filename = `${party}/sentiment_analysis-${timestamp}.json`;
+  const filename = `${party}/sentiment_analysis-${month}.json`;
   fs.writeFile(
     `./SentimentAnalysis/data/${filename}`,
     JSON.stringify(sentiment),
