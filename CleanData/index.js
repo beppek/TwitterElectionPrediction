@@ -13,7 +13,7 @@ fs.readdirSync(dataLocation).forEach((party) => {
         fs.readFile(`${dataLocation}/${party}/${file}`, 'utf8', (err, data) => {
           if (err) throw err;
           const obj = JSON.parse(data);
-          let tweets = [];
+          let tweets = new Set();
           if (!obj.error) {
             obj.results.forEach((tweet) => {
               // Stupid twitter object structure
@@ -22,7 +22,7 @@ fs.readdirSync(dataLocation).forEach((party) => {
                 : tweet.text;
               const date = tweet.created_at;
               console.log(date);
-              tweets.push({text, date});
+              tweets.add({text, date});
             });
           }
           resolve(tweets);
@@ -34,5 +34,6 @@ fs.readdirSync(dataLocation).forEach((party) => {
   Promise.all(partyPromises).then((promises) => {
     let tweets = [];
     promises.forEach((prom) => (tweets = tweets.concat(prom)));
+    console.log(tweets.length);
   });
 });
